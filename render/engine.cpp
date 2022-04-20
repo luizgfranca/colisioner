@@ -1,6 +1,8 @@
 #include "engine.h"
 #include "../config.cpp"
-#include "pixel.h"
+#include "shape/pixel.h"
+#include "shape/circle.h"
+
 
 RenderEngine::RenderEngine(SDL_Window* window) {
     this->surface = SDL_GetWindowSurface(window);
@@ -16,5 +18,10 @@ RenderEngine::RenderEngine(SDL_Window* window) {
 }
 
 void RenderEngine::execute() {
-    draw_pixel(this->renderer, this->surface->w / 2, this->surface->h / 2);
+    Circle c;
+    c.center_x = this->surface->w / 2;
+    c.center_y = this->surface->h / 2;
+    c.radius = 100;
+
+    draw_circle(this->renderer, c);
 }
