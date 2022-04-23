@@ -2,6 +2,8 @@
 #include "../config.cpp"
 #include "shape/pixel.h"
 #include "shape/circle.h"
+#include "../lib/geometry/circle.h"
+
 
 
 RenderEngine::RenderEngine(SDL_Window* window) {
@@ -18,10 +20,6 @@ RenderEngine::RenderEngine(SDL_Window* window) {
 }
 
 void RenderEngine::execute() {
-    Circle c;
-    c.center_x = this->surface->w / 2;
-    c.center_y = this->surface->h / 2;
-    c.radius = 100;
-
+    Circle* c = new Circle(this->surface->w / 2, this->surface->h / 2, 100);
     draw_circle(this->renderer, c);
 }

@@ -1,7 +1,7 @@
 const char APP_TITLE[] = "Collisioner - Collisions simulator";
 
-const int WINDOW_DETAULT_WITDH = 640;
-const int WINDOW_DEFAULT_HEIGHT = 480;
+const int WINDOW_DETAULT_WITDH = 1366;
+const int WINDOW_DEFAULT_HEIGHT = 768;
 
 const unsigned int FRAMES_PER_SECOND = 60;
 

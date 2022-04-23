@@ -1,0 +1,6 @@
+#define ORIENTATION_HORIZONTAL 0
+#define ORIENTATION_VERTICAL 1
+#define ORIENTATIONS_2D 2
+
+#define MIN 0
+#define MAX 1

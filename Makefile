@@ -17,7 +17,8 @@ all: main
 		$(OUTPATH)/pixel.o \
 		$(OUTPATH)/circle.o \
 		$(OUTPATH)/config.o \
-		$(OUTPATH)/point.o \
+		$(OUTPATH)/lib/geometry/point.o \
+		$(OUTPATH)/lib/geometry/circle.o \
 		$(LIBS)
 
 	$(CMD_RUN)
@@ -48,16 +49,18 @@ circle:
 
 # LIB
 
-lib: frameTimer point
-
+lib: frameTimer geometry_point geometry_circle
+	
 frameTimer:
 	$(CC) $(CFLAGS) $(COMPILE) lib/frameTimer.cpp $(OUTPUT) $(OUTPATH)/frameTimer.o $(LIBS)
 
 ## GEOMETRY
 
-point:
-	$(CC) $(CFLAGS) $(COMPILE) lib/geometry/point.cpp $(OUTPUT) $(OUTPATH)/point.o $(LIBS)	
+geometry_point:
+	$(CC) $(CFLAGS) $(COMPILE) lib/geometry/point.cpp $(OUTPUT) $(OUTPATH)/lib/geometry/point.o $(LIBS)	
 
+geometry_circle:
+	$(CC) $(CFLAGS) $(COMPILE) lib/geometry/circle.cpp $(OUTPUT) $(OUTPATH)/lib/geometry/circle.o $(LIBS)	
 
 
 # SETTINGS
@@ -65,5 +68,11 @@ point:
 config:
 	$(CC) $(CFLAGS) $(COMPILE) config.cpp $(OUTPUT) $(OUTPATH)/config.o $(LIBS)
 
+
+prepare:
+	mkdir $(OUTPATH)/lib
+	mkdir $(OUTPATH)/lib/geometry
+
 clear: 
 	rm -rf out/*
+
