@@ -7,71 +7,45 @@ APPLICATION = colisioner
 LIBS = -lSDL2 -lSDL2main
 CMD_RUN = ./$(OUTPATH)/\$(APPLICATION)
 
-all: main
+define run_std_compilation
+	$(CC) $(CFLAGS) $(COMPILE) $< $(OUTPUT) $(OUTPATH)/$@ $(LIBS)
+endef
+
+SRCS = $(wildcard */*/*.cpp) $(wildcard */*.cpp) $(wildcard *.cpp) 
+OBJS = $(patsubst %.cpp,%.o,$(SRCS))
+OBJS_FILES = $(patsubst %.o,$(OUTPATH)/%.o,$(OBJS))
+
+all: compile
 	$(CC) $(CFLAGS) $(OUTPUT) \
 		$(OUTPATH)/$(APPLICATION) \
 		$(OUTPATH)/main.o \
 		$(OUTPATH)/app.o \
-		$(OUTPATH)/frameTimer.o \
-		$(OUTPATH)/render_engine.o \
-		$(OUTPATH)/pixel.o \
-		$(OUTPATH)/circle.o \
+		$(OUTPATH)/lib/frameTimer.o \
 		$(OUTPATH)/config.o \
 		$(OUTPATH)/lib/geometry/point.o \
 		$(OUTPATH)/lib/geometry/circle.o \
+		$(OUTPATH)/environment.o \
+		$(OUTPATH)/physics/physicalObject.o \
+		$(OUTPATH)/physics/circleObject.o \
+		$(OUTPATH)/physics/physicsEngine.o \
+		$(OUTPATH)/render/shape/pixel.o \
+		$(OUTPATH)/render/shape/circle.o \
+		$(OUTPATH)/render/engine.o \
 		$(LIBS)
 
 	$(CMD_RUN)
 
+compile: prepare $(OBJS)
 
-# GENERAL
-
-main: app
-	$(CC) $(CFLAGS) $(COMPILE) main.cpp $(OUTPUT) $(OUTPATH)/main.o $(LIBS)
-
-app: config render_engine lib
-	$(CC) $(CFLAGS) $(COMPILE) app.cpp $(OUTPUT) $(OUTPATH)/app.o $(LIBS)
-
-
-# RENDERING
-
-render_engine: config pixel circle
-	$(CC) $(CFLAGS) $(COMPILE) render/engine.cpp $(OUTPUT) $(OUTPATH)/render_engine.o $(LIBS)
-
-## SHAPE
-
-pixel: 
-	$(CC) $(CFLAGS) $(COMPILE) render/shape/pixel.cpp $(OUTPUT) $(OUTPATH)/pixel.o $(LIBS)
-
-circle: 
-	$(CC) $(CFLAGS) $(COMPILE) render/shape/circle.cpp $(OUTPUT) $(OUTPATH)/circle.o $(LIBS)
-
-
-# LIB
-
-lib: frameTimer geometry_point geometry_circle
-	
-frameTimer:
-	$(CC) $(CFLAGS) $(COMPILE) lib/frameTimer.cpp $(OUTPUT) $(OUTPATH)/frameTimer.o $(LIBS)
-
-## GEOMETRY
-
-geometry_point:
-	$(CC) $(CFLAGS) $(COMPILE) lib/geometry/point.cpp $(OUTPUT) $(OUTPATH)/lib/geometry/point.o $(LIBS)	
-
-geometry_circle:
-	$(CC) $(CFLAGS) $(COMPILE) lib/geometry/circle.cpp $(OUTPUT) $(OUTPATH)/lib/geometry/circle.o $(LIBS)	
-
-
-# SETTINGS
-
-config:
-	$(CC) $(CFLAGS) $(COMPILE) config.cpp $(OUTPUT) $(OUTPATH)/config.o $(LIBS)
-
+%.o: %.cpp
+	$(call run_std_compilation)
 
 prepare:
-	mkdir $(OUTPATH)/lib
-	mkdir $(OUTPATH)/lib/geometry
+	mkdir -p $(OUTPATH)/lib
+	mkdir -p $(OUTPATH)/lib/geometry
+	mkdir -p $(OUTPATH)/physics
+	mkdir -p $(OUTPATH)/render
+	mkdir -p $(OUTPATH)/render/shape
 
 clear: 
 	rm -rf out/*

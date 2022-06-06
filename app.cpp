@@ -1,5 +1,7 @@
 #include "app.h"
-
+#include "lib/geometry/circle.h"
+#include "physics/physicalObject.h"
+#include "physics/circleObject.h"
 
 void App::init() {
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -26,6 +28,21 @@ void App::setup_application() {
     this->create_window();
     this->frame_timer = FrameTimer::build(FRAMES_PER_SECOND);
     this->render_engine = new RenderEngine(this->window);
+    this->environment = new Environment(WINDOW_DEFAULT_HEIGHT, WINDOW_DEFAULT_HEIGHT);
+    this->physics_engine = new PhysicsEngine();
+    this->create_initial_state();
+}
+
+void App::create_initial_state() {
+    auto circle = new CircleObject(new Circle(
+        WINDOW_DETAULT_WITDH / 2,
+        WINDOW_DEFAULT_HEIGHT / 2,
+        10
+    ));
+
+    circle->set_velocity({2, 1});
+
+    this->environment->add_object(circle);
 }
 
 void App::loop() {
@@ -39,7 +56,8 @@ void App::loop() {
         if( SDL_PollEvent(&this->sdl_event) && this->sdl_event.type == SDL_QUIT )
             this->is_running = false;
 
-        this->render_engine->execute();
+        this->physics_engine->compute(this->environment);
+        this->render_engine->render(this->environment);
 
         SDL_UpdateWindowSurface(this->window);
     }

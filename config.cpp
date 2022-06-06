@@ -14,3 +14,5 @@ const int BACKGROUND_COLOR_R = 0;
 const int BACKGROUND_COLOR_G = 0;
 const int BACKGROUND_COLOR_B = 0;
 const int BACKGROUND_COLOR_A = 0;
+
+const unsigned int MS_IN_TIME_UNIT = 1000;
