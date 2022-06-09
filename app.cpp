@@ -28,7 +28,7 @@ void App::setup_application() {
     this->create_window();
     this->frame_timer = FrameTimer::build(FRAMES_PER_SECOND);
     this->render_engine = new RenderEngine(this->window);
-    this->environment = new Environment(WINDOW_DEFAULT_HEIGHT, WINDOW_DEFAULT_HEIGHT);
+    this->environment = new Environment(WINDOW_DETAULT_WITDH, WINDOW_DEFAULT_HEIGHT);
     this->physics_engine = new PhysicsEngine();
     this->create_initial_state();
 }
@@ -37,10 +37,10 @@ void App::create_initial_state() {
     auto circle = new CircleObject(new Circle(
         WINDOW_DETAULT_WITDH / 2,
         WINDOW_DEFAULT_HEIGHT / 2,
-        10
+        50
     ));
 
-    circle->set_velocity({2, 1});
+    circle->set_velocity({5, 1});
 
     this->environment->add_object(circle);
 }

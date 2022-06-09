@@ -17,16 +17,16 @@ void PhysicsEngine::compute(Environment* environment) {
         }
         
         unsigned int last_computed_moment = this->last_computed_moments->at(i);
-        if( (last_computed_moment - current_ticks) >= MS_IN_TIME_UNIT) {
+        auto elapsed_time = (current_ticks - last_computed_moment) / MS_IN_TIME_UNIT;
+        if(elapsed_time >= 1) {
             auto object = environment->objects->at(i);
-            auto elapsed_time = (current_ticks - last_computed_moment) / MS_IN_TIME_UNIT;
-        
+            
             object->update_position(
                 object->velocity.x * elapsed_time,
                 object->velocity.y * elapsed_time
             );
 
-            last_computed_moment = current_ticks;
+            this->last_computed_moments->at(i) = current_ticks;
         }
     }
 }
