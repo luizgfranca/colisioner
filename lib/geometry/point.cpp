@@ -5,6 +5,14 @@ Point::Point(int x, int y) {
     this->set_coordinates(x, y);
 }
 
+Point::Point(coordinates coord) {
+    this->set_coordinates(coord);
+}
+
+void Point::set_coordinates(coordinates coord) {
+    this->set_coordinates(coord.x, coord.y);
+}
+
 void Point::set_coordinates(int x, int y) {
     this->x = x;
     this->y = y;

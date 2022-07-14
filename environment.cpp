@@ -9,3 +9,7 @@ Environment::Environment(unsigned int width, unsigned int height) {
 void Environment::add_object(PhysicalObject* object) {
     this->objects->push_back(object);
 }
+
+coordinates Environment::get_dimensions() {
+    return {(int) this->width, (int) this->height};
+}

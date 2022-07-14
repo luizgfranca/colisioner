@@ -24,10 +24,12 @@ all: compile
 		$(OUTPATH)/config.o \
 		$(OUTPATH)/lib/geometry/point.o \
 		$(OUTPATH)/lib/geometry/circle.o \
+		$(OUTPATH)/lib/geometry/bounds.o \
 		$(OUTPATH)/environment.o \
 		$(OUTPATH)/physics/physicalObject.o \
 		$(OUTPATH)/physics/circleObject.o \
 		$(OUTPATH)/physics/physicsEngine.o \
+		$(OUTPATH)/physics/colisionDetector.o \
 		$(OUTPATH)/render/shape/pixel.o \
 		$(OUTPATH)/render/shape/circle.o \
 		$(OUTPATH)/render/engine.o \

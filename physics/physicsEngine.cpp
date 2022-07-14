@@ -5,9 +5,13 @@
 
 PhysicsEngine::PhysicsEngine() {
     this->last_computed_moments = new std::vector<int>;
+    this->colision_detector = new ColisionDetector();
 }
 
 void PhysicsEngine::compute(Environment* environment) {
+    this->colision_detector->reset();
+    this->colision_detector->set_environment(environment);
+
     for(size_t i = 0; i < environment->objects->size(); i ++) {
         unsigned int current_ticks = SDL_GetTicks();
         
@@ -29,4 +33,6 @@ void PhysicsEngine::compute(Environment* environment) {
             this->last_computed_moments->at(i) = current_ticks;
         }
     }
+
+    this->colision_detector->evaluate_colisions();
 }

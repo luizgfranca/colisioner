@@ -9,3 +9,4 @@ void PhysicalObject::set_velocity(Vector v) {
 }
 
 void PhysicalObject::update_position(int x_offset, int y_offset) {}
+bool PhysicalObject::is_over_bounds(Bounds* bounds) {return false;}
