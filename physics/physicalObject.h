@@ -6,9 +6,10 @@
 
 class PhysicalObject {
 public:
-    Vector velocity;
+    Vector* velocity;
     PhysicalObject();
-    void set_velocity(Vector v);
+    void set_velocity(coordinates values);
+    void apply_velocity_transformation(Vector* velocity_transformation);
     virtual void update_position(int x_offset, int y_offset);
-    virtual bool is_over_bounds(Bounds* bounds);
+    virtual Bound is_over_bounds(Bounds* bounds);
 };

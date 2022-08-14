@@ -15,7 +15,9 @@ SRCS = $(wildcard */*/*.cpp) $(wildcard */*.cpp) $(wildcard *.cpp)
 OBJS = $(patsubst %.cpp,%.o,$(SRCS))
 OBJS_FILES = $(patsubst %.o,$(OUTPATH)/%.o,$(OBJS))
 
-all: compile
+all: compile link start
+
+link: 
 	$(CC) $(CFLAGS) $(OUTPUT) \
 		$(OUTPATH)/$(APPLICATION) \
 		$(OUTPATH)/main.o \
@@ -26,15 +28,18 @@ all: compile
 		$(OUTPATH)/lib/geometry/circle.o \
 		$(OUTPATH)/lib/geometry/bounds.o \
 		$(OUTPATH)/environment.o \
+		$(OUTPATH)/physics/vector.o \
 		$(OUTPATH)/physics/physicalObject.o \
 		$(OUTPATH)/physics/circleObject.o \
 		$(OUTPATH)/physics/physicsEngine.o \
 		$(OUTPATH)/physics/colisionDetector.o \
+		$(OUTPATH)/physics/interactionsResultEvaluator.o \
 		$(OUTPATH)/render/shape/pixel.o \
 		$(OUTPATH)/render/shape/circle.o \
 		$(OUTPATH)/render/engine.o \
 		$(LIBS)
 
+start: 
 	$(CMD_RUN)
 
 compile: prepare $(OBJS)

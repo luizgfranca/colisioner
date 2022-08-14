@@ -2,7 +2,7 @@
 
 CircleObject::CircleObject(Circle* circle) {
     this->circle = circle;
-    this->velocity = {0, 0};
+    this->velocity = new Vector(0,0);
 }
 
 void CircleObject::update_position(int x_offset, int y_offset) {
@@ -12,24 +12,24 @@ void CircleObject::update_position(int x_offset, int y_offset) {
     );
 }
 
-bool CircleObject::is_over_bounds(Bounds* bounds) {
+Bound CircleObject::is_over_bounds(Bounds* bounds) {
     auto virtual_point = new Point(0,0);
 
     virtual_point->set_coordinates(this->circle->center->x, bounds->upper);
     if(this->circle->center->get_distance_from(*virtual_point) <= this->circle->radius)
-        return true;
+        return Bound::UPPER;
 
     virtual_point->set_coordinates(bounds->right, this->circle->center->y);
     if(this->circle->center->get_distance_from(*virtual_point) <= this->circle->radius)
-        return true;
+        return Bound::RIGHT;
 
     virtual_point->set_coordinates(this->circle->center->x, bounds->lower);
     if(this->circle->center->get_distance_from(*virtual_point) <= this->circle->radius)
-        return true;
+        return Bound::LOWER;
 
     virtual_point->set_coordinates(bounds->left, this->circle->center->y);
     if(this->circle->center->get_distance_from(*virtual_point) <= this->circle->radius)
-        return true;
+        return Bound::LEFT;
 
-    return false;
+    return Bound::NONE;
 }

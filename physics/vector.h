@@ -1,6 +1,15 @@
 #pragma once
+#include "../lib/geometry/coordinates.h"
 
-typedef struct vector {
+class Vector {
+    
+public:
     int x;
     int y;
-} Vector;
+
+    Vector(int x, int y);
+    Vector(coordinates coord);
+
+    void update(coordinates values);
+    void add_with(Vector v);
+};

@@ -3,7 +3,7 @@
 #include "SDL2/SDL.h"
 
 ColisionDetector::ColisionDetector() {
-    this->coliding_objects = new std::vector<PhysicalObject*>();
+    this->colisions = new std::vector<colision_information>();
 }
 
 void ColisionDetector::set_environment(Environment* e) {
@@ -11,10 +11,10 @@ void ColisionDetector::set_environment(Environment* e) {
 }
 
 void ColisionDetector::reset() {
-    this->coliding_objects->clear();
+    this->colisions->clear();
 }
 
-bool ColisionDetector::is_coliding_with_wall(PhysicalObject* object, Bounds* bounds) {
+Bound ColisionDetector::is_coliding_with_wall(PhysicalObject* object, Bounds* bounds) {
     return object->is_over_bounds(bounds);
 }
 
@@ -24,15 +24,25 @@ void ColisionDetector::evaluate_wall_colisions() {
 
     for(unsigned int i = 0; i < this->environment->objects->size(); i ++) {
         auto object = this->environment->objects->at(i);
+        auto violated_bound = is_coliding_with_wall(object, bounds);
 
-        if(is_coliding_with_wall(object, bounds))
-            this->coliding_objects->push_back(object);
+        if(violated_bound != Bound::NONE) {
+            colision_information colision = {
+                ColisionType::COLISION_WITH_WALL,
+                object,
+                NULL,
+                violated_bound
+            };
+            
+            this->colisions->push_back(colision);
+        }
+            
     }
 
-    SDL_Log("coliding objects %ld", this->coliding_objects->size());
+    //SDL_Log("coliding objects %ld", this->colisions->size());
 }
 
-std::vector<PhysicalObject*>* ColisionDetector::evaluate_colisions() {
+std::vector<colision_information>* ColisionDetector::evaluate_colisions() {
     this->evaluate_wall_colisions();
-    return this->coliding_objects;
+    return this->colisions;
 }

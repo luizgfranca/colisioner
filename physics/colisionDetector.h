@@ -3,18 +3,19 @@
 #include "../environment.h"
 #include "physicalObject.h"
 #include "vector.h"
+#include "colisionInformation.h"
 
 
 class ColisionDetector {
     Environment* environment;
-    std::vector<PhysicalObject*>* coliding_objects;
+    std::vector<colision_information>* colisions;
 
     void evaluate_wall_colisions();
-    bool is_coliding_with_wall(PhysicalObject* object, Bounds* bounds);
+    Bound is_coliding_with_wall(PhysicalObject* object, Bounds* bounds);
 
 public:
     ColisionDetector();
     void set_environment(Environment* environment);
-    std::vector<PhysicalObject*>* evaluate_colisions();
+    std::vector<colision_information>* evaluate_colisions();
     void reset();
 };

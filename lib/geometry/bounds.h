@@ -2,6 +2,14 @@
 
 #include "coordinates.h"
 
+enum Bound {
+    NONE,
+    UPPER,
+    LOWER,
+    RIGHT,
+    LEFT
+};
+
 class Bounds {
 public:
     int upper;

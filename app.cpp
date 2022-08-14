@@ -40,7 +40,7 @@ void App::create_initial_state() {
         50
     ));
 
-    circle->set_velocity({5, 1});
+    circle->set_velocity({10, 9});
 
     this->environment->add_object(circle);
 }
