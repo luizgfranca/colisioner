@@ -3,7 +3,7 @@
 #include "SDL2/SDL.h"
 
 ColisionDetector::ColisionDetector() {
-    this->colisions = new std::vector<colision_information>();
+    this->colisions = new Colisions();
 }
 
 void ColisionDetector::set_environment(Environment* e) {
@@ -11,7 +11,7 @@ void ColisionDetector::set_environment(Environment* e) {
 }
 
 void ColisionDetector::reset() {
-    this->colisions->clear();
+    this->colisions->reset();
 }
 
 Bound ColisionDetector::is_coliding_with_wall(PhysicalObject* object, Bounds* bounds) {
@@ -30,19 +30,19 @@ void ColisionDetector::evaluate_wall_colisions() {
             colision_information colision = {
                 ColisionType::COLISION_WITH_WALL,
                 object,
+                (int) i,
                 NULL,
+                -1,
                 violated_bound
             };
             
-            this->colisions->push_back(colision);
+            this->colisions->add_colision(colision);
         }
             
     }
-
-    //SDL_Log("coliding objects %ld", this->colisions->size());
 }
 
-std::vector<colision_information>* ColisionDetector::evaluate_colisions() {
+Colisions* ColisionDetector::evaluate_colisions() {
     this->evaluate_wall_colisions();
     return this->colisions;
 }

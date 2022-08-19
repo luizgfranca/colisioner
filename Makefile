@@ -31,6 +31,7 @@ link:
 		$(OUTPATH)/physics/vector.o \
 		$(OUTPATH)/physics/physicalObject.o \
 		$(OUTPATH)/physics/circleObject.o \
+		$(OUTPATH)/physics/colisionInformation.o \
 		$(OUTPATH)/physics/physicsEngine.o \
 		$(OUTPATH)/physics/colisionDetector.o \
 		$(OUTPATH)/physics/interactionsResultEvaluator.o \

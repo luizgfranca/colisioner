@@ -13,6 +13,6 @@ public:
 
     void evaluate(
         Environment* Environment,
-        std::vector<colision_information>* colisions
+        Colisions* colisions
     );
 };

@@ -5,10 +5,9 @@
 #include "vector.h"
 #include "colisionInformation.h"
 
-
 class ColisionDetector {
     Environment* environment;
-    std::vector<colision_information>* colisions;
+    Colisions* colisions;
 
     void evaluate_wall_colisions();
     Bound is_coliding_with_wall(PhysicalObject* object, Bounds* bounds);
@@ -16,6 +15,6 @@ class ColisionDetector {
 public:
     ColisionDetector();
     void set_environment(Environment* environment);
-    std::vector<colision_information>* evaluate_colisions();
+    Colisions* evaluate_colisions();
     void reset();
 };
